@@ -240,29 +240,36 @@ const WebcamCapture = () => {
           />
         )}
       </div>
-      <button
-        onClick={handleShapeChange}
-        className="absolute bottom-0 right-10 bg-gray-800 text-white p-4 rounded-full hover:bg-gray-700 m-2"
-        style={{ fontSize: '24px' }} 
-      >
-        <FaShapes />
-      </button>
-      <button
-        onClick={toggleCamera}
-        className="absolute bottom-0 bg-gray-800 text-white p-4 rounded-full hover:bg-gray-700 m-2"
-        style={{ fontSize: '24px' }} 
-      >
-        {cameraOn ? <FaPowerOff /> : <FaCameraRetro />}
-      </button>
-      {faceDetected && (
+      <div className="absolute bottom-0 left-0 w-full flex justify-center gap-4 p-4">
         <button
           onClick={capturePhoto}
-          className="absolute bottom-0 left-10  bg-blue-600 text-white p-4 rounded-full hover:bg-blue-500 m-2"
-          style={{ fontSize: '24px' }} 
+          className="bg-blue-500 text-white py-2 px-4 rounded-lg flex items-center gap-2"
         >
           <FaCameraRetro />
+          
         </button>
-      )}
+        <button
+          onClick={handleShapeChange}
+          className="bg-yellow-500 text-white py-2 px-4 rounded-lg flex items-center gap-2"
+        >
+          <FaShapes />
+          
+        </button>
+        <button
+          onClick={toggleCamera}
+          className={`bg-${cameraOn ? 'red' : 'green'}-500 text-white py-2 px-4 rounded-lg flex items-center gap-2`}
+        >
+          <FaPowerOff />
+          {cameraOn ? 'Turn Off' : 'Turn On'}
+        </button>
+        <button
+          onClick={flipCamera}
+          className="bg-purple-500 text-white py-2 px-4 rounded-lg flex items-center gap-2"
+        >
+          <FaSync />
+        
+        </button>
+      </div>
     </div>
   );
 };
