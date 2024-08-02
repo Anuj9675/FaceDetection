@@ -178,10 +178,10 @@ const WebcamCapture = () => {
         return 'rect';
       }
       if (prevShape === 'rect') {
-        setShapeSize({ radius: 175, radiusX: 175, radiusY: 225 });
+        setShapeSize({ radius: 150, radiusX: 150, radiusY: 200 });
         return 'ellipse';
       }
-      setShapeSize({ radius: 175, radiusX: 175, radiusY: 225 });
+      setShapeSize({ radius: 150, radiusX: 150, radiusY: 200 });
       return 'circle';
     });
   };
