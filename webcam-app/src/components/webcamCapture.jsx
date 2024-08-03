@@ -128,6 +128,22 @@ const WebcamCapture = () => {
     return () => clearInterval(interval);
   }, [cameraOn, modelsLoaded, shapeSize]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      const minWidth = 150; // minimum size for the shape
+      const maxWidth = 200; // maximum size for the shape
+      const newRadius = Math.max(minWidth, Math.min(maxWidth, window.innerWidth * 0.1));
+      setShapeSize({ radius: newRadius, radiusX: newRadius, radiusY: newRadius * 1.25 });
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const toggleCamera = () => {
     setCameraOn(!cameraOn);
   };
@@ -156,7 +172,7 @@ const WebcamCapture = () => {
       shapeContext.arc(canvas.width / 2, canvas.height / 2, shapeSize.radius, 0, Math.PI * 2);
       shapeContext.fill();
     } else if (currentShape === 'rect') {
-      shapeContext.fillRect(canvas.width / 2 - shapeSize.radius, canvas.height / 2 - shapeSize.radius, shapeSize.radius * 2, shapeSize.radius * 2);
+      shapeContext.fillRect(canvas.width / 2 - shapeSize.radius, canvas.height / 2 - shapeSize.radius, shapeSize.radius * 2);
     } else if (currentShape === 'ellipse') {
       shapeContext.beginPath();
       shapeContext.ellipse(canvas.width / 2, canvas.height / 2, shapeSize.radiusX, shapeSize.radiusY, 0, 0, Math.PI * 2);
@@ -186,7 +202,7 @@ const WebcamCapture = () => {
   };
 
   return (
-    <div className="relative lg:w-screen lg:h-screen sm:h-full sm:w-fill flex flex-col items-center justify-center">
+    <div className="relative lg:w-screen lg:h-screen min-w-screen min-h-screen flex flex-col items-center justify-center">
       <video
         ref={videoRef}
         className={`relative h-full w-full object-cover ${!cameraOn && 'hidden'}`}
@@ -195,7 +211,7 @@ const WebcamCapture = () => {
         ref={canvasRef}
         className="absolute w-full h-full"
       />
-      <div className="absolute w-full h-full flex items-center justify-center">
+      <div className="absolute w-[300px] h-[300px] flex items-center justify-center">
         {currentShape === 'circle' && (
           <div
             style={{
@@ -242,7 +258,7 @@ const WebcamCapture = () => {
           />
         )}
       </div>
-      <div className="absolute bottom-0 mb-4 flex gap-4">
+      <div className="absolute bottom-5 flex space-x-2">
         <button
           onClick={capturePhoto}
           className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
@@ -250,22 +266,22 @@ const WebcamCapture = () => {
           <FaCameraRetro size={24} />
         </button>
         <button
-          onClick={toggleCamera}
-          className="p-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+          onClick={handleShapeChange}
+          className="p-2 bg-green-500 text-white rounded-md hover:bg-green-600"
         >
-          <FaPowerOff size={24} />
+          <FaShapes size={24} />
         </button>
         <button
           onClick={flipCamera}
-          className="p-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+          className="p-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
         >
           <FaSync size={24} />
         </button>
         <button
-          onClick={handleShapeChange}
-          className="p-2 bg-purple-500 text-white rounded-md hover:bg-purple-600"
+          onClick={toggleCamera}
+          className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
         >
-          <FaShapes size={24} />
+          <FaPowerOff size={24} />
         </button>
       </div>
     </div>
