@@ -209,7 +209,7 @@ const WebcamCapture = () => {
       />
       <canvas
         ref={canvasRef}
-        className="absolute w-full h-full"
+        className="absolute inset-0"
       />
       <div className="absolute w-[200px] h-[200px] flex items-center justify-center">
         {currentShape === 'circle' && (
