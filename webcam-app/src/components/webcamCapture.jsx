@@ -202,7 +202,7 @@ const WebcamCapture = () => {
   };
 
   return (
-    <div className="relative lg:w-screen lg:h-screen min-w-screen min-h-screen flex flex-col items-center justify-center">
+    <div className="relative w-screen h-screen flex flex-col items-center justify-center">
       <video
         ref={videoRef}
         className={`absolute h-full w-full object-cover ${!cameraOn && 'hidden'}`}
