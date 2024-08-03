@@ -130,8 +130,8 @@ const WebcamCapture = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      const minWidth = 150; // minimum size for the shape
-      const maxWidth = 200; // maximum size for the shape
+      const minWidth = 150; 
+      const maxWidth = 200; 
       const newRadius = Math.max(minWidth, Math.min(maxWidth, window.innerWidth * 0.1));
       setShapeSize({ radius: newRadius, radiusX: newRadius, radiusY: newRadius * 1.25 });
     };
