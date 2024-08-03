@@ -190,13 +190,13 @@ const WebcamCapture = () => {
     <div className="relative w-screen h-screen overflow-hidden bg-gray-900 flex flex-col items-center justify-center">
       <video
         ref={videoRef}
-        className={`absolute top-0 left-0 w-full h-full object-cover ${!cameraOn && 'hidden'}`}
+        className={`relative w-full h-full object-cover ${!cameraOn && 'hidden'}`}
       />
       <canvas
         ref={canvasRef}
-        className="absolute top-0 left-0 w-full h-full"
+        className="absolute w-full h-full"
       />
-      <div className="absolute top-0 left-0 w-full h-full">
+      <div className="absolute w-full h-full  flex items-center justify-center">
         {currentShape === 'circle' && (
           <div
             style={{
@@ -260,7 +260,7 @@ const WebcamCapture = () => {
           className={`bg-${cameraOn ? 'red' : 'green'}-500 text-white py-2 px-4 rounded-lg flex items-center gap-2`}
         >
           <FaPowerOff />
-          {cameraOn ? 'Turn Off' : 'Turn On'}
+          {cameraOn ? 'Off' : 'On'}
         </button>
         <button
           onClick={flipCamera}

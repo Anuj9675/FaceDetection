@@ -4,7 +4,7 @@ import './index.css';
 
 function App() {
   return (
-    <div >
+    <div className='h-screen w-screen'>
       <WebcamCapture />
     </div>
   );
