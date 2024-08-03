@@ -253,7 +253,7 @@ const WebcamCapture = () => {
               width: `${shapeSize.radiusX * 2}px`,
               height: `${shapeSize.radiusY * 2}px`,
               borderRadius: '50%',
-              border: `5px ${faceDetected ? 'solid green' : 'solid red'}`,
+              border: `5px ${faceDetected ? ' green' : ' red'}`,
               pointerEvents: 'none'
             }}
           />
