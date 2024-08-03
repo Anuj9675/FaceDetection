@@ -12,7 +12,6 @@ const WebcamCapture = () => {
   const [faceDetected, setFaceDetected] = useState(false);
   const [currentShape, setCurrentShape] = useState('circle');
   const [modelsLoaded, setModelsLoaded] = useState(false);
-  const [shapePosition, setShapePosition] = useState({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
   const [shapeSize, setShapeSize] = useState({ radius: 200, radiusX: 200, radiusY: 250 });
 
   const videoRef = useRef(null);
@@ -102,8 +101,8 @@ const WebcamCapture = () => {
             context.strokeRect(x, y, width, height);
 
             const shape = {
-              x: shapePosition.x - shapeSize.radius,
-              y: shapePosition.y - shapeSize.radius,
+              x: (canvas.width / 2) - shapeSize.radius,
+              y: (canvas.height / 2) - shapeSize.radius,
               width: shapeSize.radius * 2,
               height: shapeSize.radius * 2
             };
@@ -127,7 +126,7 @@ const WebcamCapture = () => {
     const interval = setInterval(detectFace, 500);
 
     return () => clearInterval(interval);
-  }, [cameraOn, modelsLoaded, shapePosition, shapeSize]);
+  }, [cameraOn, modelsLoaded, shapeSize]);
 
   const toggleCamera = () => {
     setCameraOn(!cameraOn);
@@ -154,13 +153,13 @@ const WebcamCapture = () => {
     shapeContext.fillStyle = 'rgba(0, 0, 0, 0.5)';
     if (currentShape === 'circle') {
       shapeContext.beginPath();
-      shapeContext.arc(shapePosition.x, shapePosition.y, shapeSize.radius, 0, Math.PI * 2);
+      shapeContext.arc(canvas.width / 2, canvas.height / 2, shapeSize.radius, 0, Math.PI * 2);
       shapeContext.fill();
     } else if (currentShape === 'rect') {
-      shapeContext.fillRect(shapePosition.x - shapeSize.radius, shapePosition.y - shapeSize.radius, shapeSize.radius * 2, shapeSize.radius * 2);
+      shapeContext.fillRect(canvas.width / 2 - shapeSize.radius, canvas.height / 2 - shapeSize.radius, shapeSize.radius * 2, shapeSize.radius * 2);
     } else if (currentShape === 'ellipse') {
       shapeContext.beginPath();
-      shapeContext.ellipse(shapePosition.x, shapePosition.y, shapeSize.radiusX, shapeSize.radiusY, 0, 0, Math.PI * 2);
+      shapeContext.ellipse(canvas.width / 2, canvas.height / 2, shapeSize.radiusX, shapeSize.radiusY, 0, 0, Math.PI * 2);
       shapeContext.fill();
     }
 
@@ -196,13 +195,14 @@ const WebcamCapture = () => {
         ref={canvasRef}
         className="absolute w-full h-full"
       />
-      <div className="absolute w-full h-full  flex items-center justify-center">
+      <div className="absolute w-full h-full flex items-center justify-center">
         {currentShape === 'circle' && (
           <div
             style={{
               position: 'absolute',
-              top: `${shapePosition.y - shapeSize.radius}px`,
-              left: `${shapePosition.x - shapeSize.radius}px`,
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
               width: `${shapeSize.radius * 2}px`,
               height: `${shapeSize.radius * 2}px`,
               borderRadius: '50%',
@@ -215,8 +215,9 @@ const WebcamCapture = () => {
           <div
             style={{
               position: 'absolute',
-              top: `${shapePosition.y - shapeSize.radius}px`,
-              left: `${shapePosition.x - shapeSize.radius}px`,
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
               width: `${shapeSize.radius * 2}px`,
               height: `${shapeSize.radius * 2}px`,
               borderRadius: '0%',
@@ -229,8 +230,9 @@ const WebcamCapture = () => {
           <div
             style={{
               position: 'absolute',
-              top: `${shapePosition.y - shapeSize.radiusY}px`,
-              left: `${shapePosition.x - shapeSize.radiusX}px`,
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
               width: `${shapeSize.radiusX * 2}px`,
               height: `${shapeSize.radiusY * 2}px`,
               borderRadius: '50%',
@@ -240,34 +242,30 @@ const WebcamCapture = () => {
           />
         )}
       </div>
-      <div className="absolute bottom-0 left-0 w-full flex justify-center gap-4 p-4">
+      <div className="absolute bottom-0 mb-4 flex gap-4">
         <button
           onClick={capturePhoto}
-          className="bg-blue-500 text-white py-2 px-4 rounded-lg flex items-center gap-2"
+          className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
         >
-          <FaCameraRetro />
-          
-        </button>
-        <button
-          onClick={handleShapeChange}
-          className="bg-yellow-500 text-white py-2 px-4 rounded-lg flex items-center gap-2"
-        >
-          <FaShapes />
-          
+          <FaCameraRetro size={24} />
         </button>
         <button
           onClick={toggleCamera}
-          className={`bg-${cameraOn ? 'red' : 'green'}-500 text-white py-2 px-4 rounded-lg flex items-center gap-2`}
+          className="p-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
         >
-          <FaPowerOff />
-          {cameraOn ? 'Off' : 'On'}
+          <FaPowerOff size={24} />
         </button>
         <button
           onClick={flipCamera}
-          className="bg-purple-500 text-white py-2 px-4 rounded-lg flex items-center gap-2"
+          className="p-2 bg-green-500 text-white rounded-md hover:bg-green-600"
         >
-          <FaSync />
-        
+          <FaSync size={24} />
+        </button>
+        <button
+          onClick={handleShapeChange}
+          className="p-2 bg-purple-500 text-white rounded-md hover:bg-purple-600"
+        >
+          <FaShapes size={24} />
         </button>
       </div>
     </div>
