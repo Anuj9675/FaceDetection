@@ -260,16 +260,16 @@ const WebcamCapture = () => {
         )}
       </div>
       <div className="absolute bottom-4 flex space-x-4">
-        <button onClick={toggleCamera} className="p-4 bg-gray-800 text-white rounded-full">
+        <button onClick={toggleCamera} className="p-4 bg-red-600 text-white rounded-full">
           <FaPowerOff />
         </button>
-        <button onClick={flipCamera} className="p-4 bg-gray-800 text-white rounded-full">
+        <button onClick={flipCamera} className="p-4 bg-sky-600 text-white rounded-full">
           <FaSync />
         </button>
-        <button onClick={capturePhoto} className="p-4 bg-gray-800 text-white rounded-full">
+        <button onClick={capturePhoto} className="p-4 bg-yellow-600 text-white rounded-full">
           <FaCameraRetro />
         </button>
-        <button onClick={handleShapeChange} className="p-4 bg-gray-800 text-white rounded-full">
+        <button onClick={handleShapeChange} className="p-4 bg-green-600 text-white rounded-full">
           <FaShapes />
         </button>
       </div>
