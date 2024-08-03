@@ -202,16 +202,16 @@ const WebcamCapture = () => {
   };
 
   return (
-    <div className="relative w-screen h-screen flex items-center justify-center ">
+    <div className="relative min-w-screen h-screen flex flex-col items-center justify-center overflow-hidden">
       <video
         ref={videoRef}
-        className={`absolute h-full w-full object-cover ${!cameraOn && 'hidden'}`}
+        className={`relative h-full w-full object-cover ${!cameraOn && 'hidden'}`}
       />
       <canvas
         ref={canvasRef}
-        className="absolute "
+        className="absolute w-full h-full"
       />
-      <div className="absolute lg:w-[300px] lg:h-[300px] md:w-[300px] md:h-[300px] sm:w-[200px] sm:h-[200px] flex items-center justify-center">
+      <div className="absolute w-[300px] h-[300px] flex items-center justify-center">
         {currentShape === 'circle' && (
           <div
             style={{
@@ -236,6 +236,7 @@ const WebcamCapture = () => {
               transform: 'translate(-50%, -50%)',
               width: `${shapeSize.radius * 2}px`,
               height: `${shapeSize.radius * 2}px`,
+              borderRadius: '0%',
               border: `5px ${faceDetected ? 'solid green' : 'solid red'}`,
               pointerEvents: 'none'
             }}
