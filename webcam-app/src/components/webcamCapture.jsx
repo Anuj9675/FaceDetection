@@ -49,8 +49,8 @@ const WebcamCapture = () => {
           const stream = await navigator.mediaDevices.getUserMedia({
             video: {
               facingMode: isFrontCamera ? 'user' : 'environment',
-              width: { ideal: window.innerWidth },
-              height: { ideal: window.innerHeight }
+              width: { ideal: 1280 },
+              height: { ideal: 720 }
             }
           });
           setVideoStream(stream);
@@ -205,11 +205,12 @@ const WebcamCapture = () => {
     <div className="relative min-w-screen h-screen flex flex-col items-center justify-center overflow-hidden">
       <video
         ref={videoRef}
-        className={`absolute h-screen w-screen object-cover ${!cameraOn && 'hidden'}`}
+        className={`absolute inset-0 w-full h-full object-cover ${!cameraOn && 'hidden'}`}
+        style={{ objectFit: 'cover' }} // Ensures no zooming
       />
       <canvas
         ref={canvasRef}
-        className="absolute inset-0"
+        className="absolute inset-0 w-full h-full"
       />
       <div className="absolute w-[200px] h-[200px] flex items-center justify-center">
         {currentShape === 'circle' && (
@@ -258,30 +259,18 @@ const WebcamCapture = () => {
           />
         )}
       </div>
-      <div className="absolute bottom-5 flex space-x-2">
-        <button
-          onClick={capturePhoto}
-          className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-        >
-          <FaCameraRetro size={24} />
+      <div className="absolute bottom-4 flex space-x-4">
+        <button onClick={toggleCamera} className="p-4 bg-gray-800 text-white rounded-full">
+          <FaPowerOff />
         </button>
-        <button
-          onClick={handleShapeChange}
-          className="p-2 bg-green-500 text-white rounded-md hover:bg-green-600"
-        >
-          <FaShapes size={24} />
+        <button onClick={flipCamera} className="p-4 bg-gray-800 text-white rounded-full">
+          <FaSync />
         </button>
-        <button
-          onClick={flipCamera}
-          className="p-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
-        >
-          <FaSync size={24} />
+        <button onClick={capturePhoto} className="p-4 bg-gray-800 text-white rounded-full">
+          <FaCameraRetro />
         </button>
-        <button
-          onClick={toggleCamera}
-          className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-        >
-          <FaPowerOff size={24} />
+        <button onClick={handleShapeChange} className="p-4 bg-gray-800 text-white rounded-full">
+          <FaShapes />
         </button>
       </div>
     </div>
