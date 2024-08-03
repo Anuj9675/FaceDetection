@@ -187,10 +187,12 @@ const WebcamCapture = () => {
 
   return (
     <div className="relative w-screen h-screen flex flex-col items-center justify-center">
+      <div className='relative h-full w-full'>
       <video
         ref={videoRef}
-        className={`relative h-full w-full object-cover ${!cameraOn && 'hidden'}`}
+        className={` h-full w-full object-cover ${!cameraOn && 'hidden'}`}
       />
+      </div>
       <canvas
         ref={canvasRef}
         className="absolute w-full h-full"
