@@ -189,11 +189,11 @@ const WebcamCapture = () => {
   const handleShapeChange = () => {
     setCurrentShape(prevShape => {
       if (prevShape === 'circle') {
-        setShapeSize({ radius: 155, radiusX: 155, radiusY: 205 });
+        setShapeSize({ radius: 150, radiusX: 150, radiusY: 200 });
         return 'rect';
       }
       if (prevShape === 'rect') {
-        setShapeSize({ radius: 150, radiusX: 150, radiusY: 200 });
+        setShapeSize({ radius: 140, radiusX: 140, radiusY: 180 });
         return 'ellipse';
       }
       setShapeSize({ radius: 150, radiusX: 150, radiusY: 200 });
@@ -205,13 +205,13 @@ const WebcamCapture = () => {
     <div className="relative min-w-screen h-screen flex flex-col items-center justify-center overflow-hidden">
       <video
         ref={videoRef}
-        className={`relative h-full w-full object-cover ${!cameraOn && 'hidden'}`}
+        className={`absolute h-full w-full object-cover ${!cameraOn && 'hidden'}`}
       />
       <canvas
         ref={canvasRef}
         className="absolute w-full h-full"
       />
-      <div className="absolute w-[300px] h-[300px] flex items-center justify-center">
+      <div className="absolute w-[200px] h-[200px] flex items-center justify-center">
         {currentShape === 'circle' && (
           <div
             style={{
