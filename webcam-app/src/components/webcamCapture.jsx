@@ -206,7 +206,7 @@ const WebcamCapture = () => {
       <video
         ref={videoRef}
         className={`absolute inset-0 w-full h-full object-cover ${!cameraOn && 'hidden'}`}
-        style={{ objectFit: 'cover' }} // Ensures no zooming
+        style={{ objectFit: 'cover' }}
       />
       <canvas
         ref={canvasRef}
